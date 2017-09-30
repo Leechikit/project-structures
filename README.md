@@ -1,1 +1,1 @@
-# project-structures
+# webpack-project
