@@ -1,18 +1,22 @@
 {
     project: {
-        type: "input"
+        type: "input",
+        message: "请输入项目名："
     },
     title: {
         type: "input",
-        defaultValue: "default title"
+        message: "请输入标题：",
+        default: "default title"
     },
     author:{
         type: "input",
-        defaultValue: "leechikit"
+        message:"请输入开发者："
+        default: "leechikit"
     }
     system: {
-        type: "select",
-        list: ["mobile", "pc"],
-        defaultValue: "mobile"
+        type: "list",
+        message: "请选择项目类型",
+        choices: ["mobile", "pc"],
+        default: "mobile"
     }
 }
