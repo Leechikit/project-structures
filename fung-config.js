@@ -10,7 +10,7 @@
     },
     author:{
         type: "input",
-        message:"请输入开发者："
+        message:"请输入开发者：",
         default: "leechikit"
     }
     system: {
