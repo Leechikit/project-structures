@@ -12,7 +12,7 @@
         type: "input",
         message:"请输入开发者：",
         default: "leechikit"
-    }
+    },
     system: {
         type: "list",
         message: "请选择项目类型",
