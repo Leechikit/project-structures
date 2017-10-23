@@ -1,29 +1,26 @@
 var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
-// var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var config = require('../config').default;
-var host = '127.0.0.1';
-var port = config.port;
-var publicPath = '../';
+var publicPath = config.publicPath+'project/{{group}}/{{project}}/{{system}}/';
 
 module.exports = {
     //插件项
     plugins: [
-        //代码热替换
-        new webpack.HotModuleReplacementPlugin(),
-        //允许错误不打断程序
-        new webpack.NoErrorsPlugin()
-        //浏览器同步测试
-        // new BrowserSyncPlugin({
-        //     host: host,
-        //     port: 3300,
-        //     proxy: publicPath
-        // },{
-        //     reload:false
-        // })
+        //生成独立样式文件
+        new ExtractTextPlugin("css/[name].bundle.css"),
+        //压缩js
+        /*new webpack.optimize.UglifyJsPlugin({
+            output: {
+                comments: false,
+            },
+            compress: {
+                warnings: false
+            }
+        })*/
     ],
-    devtool: 'source-map',
+    //devtool: 'source-map', 
     //页面入口文件配置
     entry: getEntry(),
     //入口文件输出配置
@@ -39,13 +36,13 @@ module.exports = {
             loader: 'style!css'
         }, {
             test: /\.scss$/,
-            loader: 'style!css!autoprefixer!postcss!sass'
+            loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!postcss!sass')
         }, {
             test: /\.(png|jpg|gif)$/,
             loader: 'url?limit=8192&name=image/[name].[ext]?[hash]'
         }, {
             test: /\.(html)$/,
-            loader: 'html?attrs=img:src'
+            loader: 'html?attrs=img:src img:data-original!file?name=html/[name].[ext]'
         }, {
             test:/\.(js)$/,
             exclude: /(node_modules)/,
@@ -63,18 +60,7 @@ module.exports = {
         alias: config.alias
     },
     externals: config.global,
-    //dev-serve
-    devServer: {
-        contentBase: "./src",
-        publicPath: '/',
-        noInfo: true, //  --no-info option
-        hot: true,
-        inline: true,
-        colors: true,
-        host: host,
-        port: port,
-        historyApiFallback: true
-    }
+    recordsPath: path.join(__dirname, "webpack.records.json")
 };
 
 function getEntry() {

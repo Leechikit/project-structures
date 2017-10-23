@@ -1,0 +1,8 @@
+@function px2rem($val){
+	@return $val / 100 * 1rem;
+}
+*{
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    text-decoration: none;
+}
