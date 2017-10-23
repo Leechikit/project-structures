@@ -14,7 +14,7 @@
     },
     system: {
         type: "list",
-        message:"开发平台：",        
+        message:"请选择项目类型：",        
         choices: [
             {
                 name: "mobile",
