@@ -17,10 +17,12 @@
         message:"开发平台：",        
         choices: [
             {
-                mobile: "mobile"
+                name: "mobile",
+                value: "mobile"
             },
             {
-                pc: "pc"
+                name: "pc",
+                value: "pc"
             }
         ]
     }
