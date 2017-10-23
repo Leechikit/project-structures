@@ -2,7 +2,7 @@
     group: {
         type: "input",
         message: "请输入集合名："
-    }
+    },
     project: {
         type: "input",
         message: "请输入项目名："
