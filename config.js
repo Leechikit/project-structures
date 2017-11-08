@@ -9,9 +9,7 @@ exports.default = {
 	//全局引入模块配置
 	global: {
 		'jquery': 'window.jQuery',
-		'hiido_init_eventid': 'window.hiido_init_eventid',
-		'hiido_stat': 'window.hiido_stat',
-		'hiido_statV2': 'window.hiido_statV2',
+		'hiido_yylive_v2': 'window.hiido_yylive_v2',
 		'yymobile': 'window.YYMobile',
 		'jweixin': 'window.wx'
 	},
