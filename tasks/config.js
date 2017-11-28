@@ -8,12 +8,15 @@ exports.default = {
 	},
 	//全局引入模块配置
 	global: {
-		'jquery': 'window.jQuery'
+		'jquery': 'window.jQuery',
+		'hiido_yylive_v2': 'window.hiido_yylive_v2',
+		'yymobile': 'window.YYMobile',
+		'jweixin': 'window.wx'
 	},
 	//端口
-	port: 2333,
+	port: 3000,
 	//静态资源地址
-	publicPath: '//127.0.0.1:2333/',
+	publicPath: '//web.yystatic.com/project/{{group}}/{{project}}/{{system}}/',
 	//项目输出地址
 	outputPath: './dist/'
 }

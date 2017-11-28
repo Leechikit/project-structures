@@ -1,26 +1,24 @@
 var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var config = require('./config').default;
-var host = '127.0.0.1';
-var port = config.port;
-var publicPath = 'http://' + host + ':' + port + '/';
+var publicPath = config.publicPath;
+var outputPath = config.outputPath;
 
 module.exports = {
     //插件项
     plugins: [
-        //代码热替换
-        new webpack.HotModuleReplacementPlugin(),
-        //允许错误不打断程序
-        new webpack.NoEmitOnErrorsPlugin()
+        //生成独立样式文件
+        new ExtractTextPlugin("css/[name].bundle.css")
     ],
-    devtool: 'source-map',
     //页面入口文件配置
     entry: getEntry(),
     //入口文件输出配置
     output: {
         filename: 'js/[name].bundle.js',
         chunkFilename: 'js/[name].js',
+        path: path.join(__dirname, outputPath),
         publicPath: publicPath
     },
     module: {
@@ -83,17 +81,6 @@ module.exports = {
         alias: config.alias
     },
     externals: config.global,
-    //dev-serve
-    devServer: {
-        contentBase: "./src",
-        publicPath: '/',
-        noInfo: true, //  --no-info option
-        hot: true,
-        inline: true,
-        host: host,
-        port: port,
-        historyApiFallback: true
-    }
 };
 
 function getEntry() {
