@@ -1,7 +1,7 @@
 {
-    group: {
+    project: {
         type: "input",
-        message: "请输入集合名："
+        message: "请输入项目名："
     },
     system: {
         type: "list",
@@ -16,10 +16,6 @@
                 value: "pc"
             }
         ]
-    },
-    project: {
-        type: "input",
-        message: "请输入项目名："
     },
     author:{
         type: "input",
