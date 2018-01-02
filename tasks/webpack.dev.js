@@ -1,12 +1,13 @@
 var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = require('./config').default;
 var host = '127.0.0.1';
 var port = config.port;
 var publicPath = 'http://' + host + ':' + port + '/';
 
-module.exports = {
+var devConf = {
     //插件项
     plugins: [
         //代码热替换
@@ -52,10 +53,10 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 8192,
-                    prefix: 'img'
+                    fallback: 'file-loader',                    
+                    name: '[name].[ext]?[hash:8]',
+                    outputPath: 'image/'
                 }
-            }, {
-                loader: 'file-loader?name=image/[name].[ext]?[hash]'
             }]
         }, {
             test: /\.(html)$/,
@@ -109,3 +110,33 @@ function getEntry() {
     });
     return files;
 }
+
+function getViews() {
+    var jsPath = path.resolve('src', 'html');
+    var dirs = fs.readdirSync(jsPath);
+    var matchs = [],
+        files = {};
+    dirs.forEach(function (item) {
+        matchs = item.match(/(.+)\.html$/);
+        if (matchs) {
+            files[matchs[1]] = path.resolve('src', 'html', item);
+        }
+    });
+    return files;
+}
+
+var pages = Object.keys(getViews());
+pages.forEach(function (pathname) {
+    var conf = {
+        filename: 'html/' + pathname + '.html',
+        template: 'src/html/' + pathname + '.html'
+    }
+    if (pathname in devConf.entry) {
+        conf.chunks = [pathname];
+        conf.hash = true;
+    }
+    //生成独立html文件
+    devConf.plugins.push(new HtmlWebpackPlugin(conf));
+});
+
+module.exports = devConf;

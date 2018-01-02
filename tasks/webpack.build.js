@@ -2,11 +2,12 @@ var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = require('./config').default;
 var publicPath = config.publicPath;
 var outputPath = config.outputPath;
 
-module.exports = {
+var buildConf = {
     //插件项
     plugins: [
         //生成独立样式文件
@@ -31,29 +32,31 @@ module.exports = {
             ]
         }, {
             test: /\.scss$/,
-            use: [
-                'style-loader',
-                'css-loader',
-                {
-                    loader: 'postcss-loader',
-                    options: {
-                        config: {
-                            path: 'tasks/postcss.config.js'
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                path: 'tasks/postcss.config.js'
+                            }
                         }
-                    }
-                },
-                'sass-loader'
-            ]
+                    },
+                    'sass-loader'
+                ]
+            })
         }, {
             test: /\.(png|jpg|gif)$/,
             use: [{
                 loader: 'url-loader',
                 options: {
                     limit: 8192,
-                    prefix: 'img'
+                    fallback: 'file-loader',                    
+                    name: '[name].[ext]?[hash:8]',
+                    outputPath: 'image/'
                 }
-            }, {
-                loader: 'file-loader?name=image/[name].[ext]?[hash]'
             }]
         }, {
             test: /\.(html)$/,
@@ -96,3 +99,33 @@ function getEntry() {
     });
     return files;
 }
+
+function getViews() {
+    var jsPath = path.resolve('src', 'html');
+    var dirs = fs.readdirSync(jsPath);
+    var matchs = [],
+        files = {};
+    dirs.forEach(function (item) {
+        matchs = item.match(/(.+)\.html$/);
+        if (matchs) {
+            files[matchs[1]] = path.resolve('src', 'html', item);
+        }
+    });
+    return files;
+}
+
+var pages = Object.keys(getViews());
+pages.forEach(function (pathname) {
+    var conf = {
+        filename: 'html/' + pathname + '.html',
+        template: 'src/html/' + pathname + '.html'
+    }
+    if (pathname in buildConf.entry) {
+        conf.chunks = [pathname];
+        conf.hash = true;
+    }
+    //生成独立html文件
+    buildConf.plugins.push(new HtmlWebpackPlugin(conf));
+});
+
+module.exports = buildConf;

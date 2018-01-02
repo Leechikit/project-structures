@@ -5,9 +5,6 @@ module.exports = {
         'postcss-px2rem': {
             remUnit: 75
         },
-        'postcss-cssnext': {
-            warnForDuplicates: false
-        },
         'cssnano': {}
     }
 }
