@@ -5,6 +5,7 @@ module.exports = {
         'postcss-px2rem': {
             remUnit: 75
         },
-        'cssnano': {}
+        'postcss-cssnext': {}, // 增加前缀
+        'cssnano': {} // 压缩
     }
 }
