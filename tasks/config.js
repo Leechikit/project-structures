@@ -9,8 +9,8 @@ exports.default = {
 	//全局引入模块配置
 	global: {
 		'jquery': 'window.jQuery',
-		'hiido_yylive_v2': 'window.hiido_yylive_v2',
-		'yymobile': 'window.YYMobile',
+		'hiido_yylive_v3': 'window.hiido_yylive_v3',
+		'yyApiUtil': 'window.yyApiUtil',
 		'jweixin': 'window.wx'
 	},
 	//端口
