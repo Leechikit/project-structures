@@ -24,7 +24,7 @@
             "type": "input",
             "required": true,
             "message":"请输入开发者：",
-            default: "lizijie"
+            "default": "lizijie"
         }
     }
 }
