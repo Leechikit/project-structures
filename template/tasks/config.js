@@ -16,7 +16,7 @@ exports.default = {
 	//端口
 	port: 3000,
 	//静态资源地址
-	publicPath: '//web.yystatic.com/project/{{project}}/{{system}}/',
+	publicPath: '//web.yystatic.com/project/{{ name }}/{{ system }}/',
 	//项目输出地址
 	outputPath: '../dist/'
 }

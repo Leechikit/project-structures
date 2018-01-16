@@ -1,9 +1,9 @@
 {
-  "name": "{{project}}",
+  "name": "{{ name }}",
   "version": "0.1.0",
-  "description": "{{project}} project",
+  "description": "{{ name }} project",
   "repository": {},
-  "author": "{{author}}",
+  "author": "{{ author }}",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
