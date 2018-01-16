@@ -1,25 +1,30 @@
 {
-  "prompts": {
-    "name": {
-      "type": "string",
-      "required": true,
-      "message": "Project name"
-    },
-    "description": {
-      "type": "string",
-      "required": true,
-      "message": "Project description",
-      "default": "A Vue.js project"
-    },
-    "author": {
-      "type": "string",
-      "message": "Author"
-    },
-    "license": {
-      "type": "string",
-      "message": "License",
-      "default": "MIT"
+    "prompts": {
+        "name": {
+            "type": "input", 
+            "required": true, 
+            "message": "请输入项目名(group_topic/project | project)："
+        }, 
+        "system": {
+            "type": "list", 
+            "required": true, 
+            "message": "请选择项目类型：", 
+            "choices": [
+                {
+                    "name": "mobile", 
+                    "value": "mobile"
+                }, 
+                {
+                    "name": "pc", 
+                    "value": "pc"
+                }
+            ]
+        }, 
+        "author": {
+            "type": "input", 
+            "required": true, 
+            "message": "请输入开发者：", 
+            "default": "lizijie"
+        }
     }
-  },
-  "completeMessage": "To get started:\n\n  npm install\n  npm run dev"
 }
