@@ -1,9 +1,14 @@
 {
     "prompts": {
+        "group": {
+            "type": "confirm",
+            "required": true,
+            "message": "是否在group_topic集合中？" 
+        },
         "name": {
             "type": "input", 
             "required": true, 
-            "message": "请输入项目名(group_topic/project | project)："
+            "message": "请输入项目名："
         }, 
         "system": {
             "type": "list", 

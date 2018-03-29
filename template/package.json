@@ -35,6 +35,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config tasks/webpack.dev.js",
     "build": "webpack --config tasks/webpack.build.js",
+    "prod": "webpack --config tasks/webpack.prod.js",
     "test": "mocha --recursive"
   }
 }
