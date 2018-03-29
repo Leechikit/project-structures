@@ -4,8 +4,8 @@ var fs = require('fs');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = require('./config').default;
-var publicPath = '//web.yystatic.com/project{{group ? "/group_topic":""}}/{{ name }}/{{ system }}/';
-var outputPath = '../../../../../trunk/{{ name }}/{{ system }}/';
+var publicPath = config.productPublicPath;
+var outputPath = config.productOutputPath;
 
 var buildConf = {
     //插件项
