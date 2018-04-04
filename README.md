@@ -1,1 +1,1 @@
-# project-structures
+# vue + webpack + vuex

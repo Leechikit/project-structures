@@ -1,0 +1,35 @@
+{
+    "prompts": {
+        "group": {
+            "type": "confirm",
+            "required": true,
+            "message": "是否在group_topic集合中？" 
+        },
+        "name": {
+            "type": "input", 
+            "required": true, 
+            "message": "请输入项目名："
+        }, 
+        "system": {
+            "type": "list", 
+            "required": true, 
+            "message": "请选择项目类型：", 
+            "choices": [
+                {
+                    "name": "mobile", 
+                    "value": "mobile"
+                }, 
+                {
+                    "name": "pc", 
+                    "value": "pc"
+                }
+            ]
+        }, 
+        "author": {
+            "type": "input", 
+            "required": true, 
+            "message": "请输入开发者：", 
+            "default": "lizijie"
+        }
+    }
+}
