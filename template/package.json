@@ -1,6 +1,6 @@
 {
   "name": "{{name}}",
-  "description": "{{ name }} project",
+  "description": "{{name}} project",
   "version": "1.0.0",
   "author": "{{author}}",
   "private": true,
@@ -16,10 +16,14 @@
   "devDependencies": {
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
-    "babel-preset-env": "^1.5.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.5.0",
     "postcss-cssnext": "^3.0.2",
     "postcss-import": "^11.0.0",
@@ -27,12 +31,13 @@
     "postcss-px2rem": "^0.3.0",
     "postcss-scss": "^1.0.2",
     "sass-loader": "^5.0.1",
+    "url-loader": "^1.0.1",
     "vue-loader": "^12.1.0",
     "vue-router": "^2.6.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.3.3",
     "vuex": "^2.3.1",
-    "webpack": "^2.6.1",
+    "webpack": "^3.10.0",
     "webpack-dev-server": "^2.4.5"
   }
 }

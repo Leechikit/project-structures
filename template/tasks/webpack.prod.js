@@ -4,7 +4,7 @@ var fs = require('fs');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = require('./config').default;
-var publicPath = config.productPublicPath;
+var publicPath = config.productPublishPath;
 var outputPath = config.productOutputPath;
 
 var buildConf = {

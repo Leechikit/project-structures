@@ -1,9 +1,10 @@
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = require('./config').default;
 var host = '127.0.0.1';
 var port = config.port;
-var publicPath = 'http://' + host + ':' + port + '/';
+var publicPath = '../';
 
 var devConf = {
     //插件项
@@ -11,41 +12,53 @@ var devConf = {
         //代码热替换
         new webpack.HotModuleReplacementPlugin(),
         //允许错误不打断程序
-        new webpack.NoEmitOnErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin(),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'index.html',
+            inject: true
+        })
     ],
     devtool: 'source-map',
     //页面入口文件配置
     entry: './src/main.js',
     //入口文件输出配置
     output: {
-        publicPath: '/dist/',
-        filename: 'build.js'
+        path: path.resolve(__dirname, './dist'),
+        publicPath: '/',
+        filename: 'js/build.js'
     },
     module: {
         //加载器配置
         rules: [{
             test: /\.vue$/,
-            use: [
-                'vue-loader',
-                'vue-style-loader',
-                'css-loader',
-                {
-                    loader: 'postcss-loader',
-                    options: {
-                        config: {
-                            path: 'tasks/postcss.config.js'
-                        }
+            use: [{
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        scss: [
+                            'vue-style-loader',
+                            'css-loader',
+                            {
+                                loader: 'postcss-loader',
+                                options: {
+                                    config: {
+                                        path: 'tasks/postcss.config.js'
+                                    }
+                                }
+                            },
+                            'sass-loader'
+                        ]
                     }
-                },
-                'sass-loader'
-            ]
+                }
+            }]
         }, {
             test: /\.(png|jpg|gif)$/,
             use: [{
                 loader: 'url-loader',
                 options: {
                     limit: 8192,
-                    fallback: 'file-loader',                    
+                    fallback: 'file-loader',
                     name: '[name].[ext]?[hash:8]',
                     outputPath: 'image/'
                 }
@@ -64,8 +77,10 @@ var devConf = {
     },
     //其它解决方案配置
     resolve: {
-        extensions: ['.js', '.json', '.scss'],
-        alias: config.alias
+        extensions: ['.js', '.json', '.scss', '.vue'],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        }
     },
     externals: config.global,
     //dev-serve
