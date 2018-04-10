@@ -1,8 +1,8 @@
 {
-  "name": "{{name}}",
-  "description": "{{name}} project",
+  "name": "{{ name }}",
+  "description": "{{ name }} project",
   "version": "1.0.0",
-  "author": "{{author}}",
+  "author": "{{ author }}",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --config tasks/webpack.dev.js",
