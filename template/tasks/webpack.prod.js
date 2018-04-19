@@ -1,69 +1,73 @@
 var webpack = require('webpack');
 var path = require('path');
-var fs = require('fs');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = require('./config').default;
 var publicPath = config.productPublishPath;
 var outputPath = config.productOutputPath;
 
-var buildConf = {
+var prodConf = {
     //插件项
     plugins: [
         //生成独立样式文件
-        new ExtractTextPlugin("css/[name].bundle.css")
+        new ExtractTextPlugin({
+            filename: 'css/[name].css?[hash:8]',
+            allChunks: true
+        }),
+        new HtmlWebpackPlugin({
+            filename: '/html/index.html',
+            template: 'index.html',
+            inject: true
+        })
     ],
     //页面入口文件配置
-    entry: getEntry(),
+    entry: './src/main.js',
     //入口文件输出配置
     output: {
-        filename: 'js/[name].bundle.js',
-        chunkFilename: 'js/[name].js',
         path: path.join(__dirname, outputPath),
-        publicPath: publicPath
+        publicPath: publicPath,
+        filename: 'js/build.js?[hash:8]'
     },
     module: {
         //加载器配置
         rules: [{
-            test: /\.css$/,
-            use: [
-                'style-loader',
-                'css-loader'
-            ]
-        }, {
-            test: /\.scss$/,
-            use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: [
-                    'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            config: {
-                                path: 'tasks/postcss.config.js'
-                            }
-                        }
-                    },
-                    'sass-loader'
-                ]
-            })
+            test: /\.vue$/,
+            use: [{
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        scss: ExtractTextPlugin.extract({
+                            use: [
+                                'css-loader',
+                                {
+                                    loader: 'postcss-loader',
+                                    options: {
+                                        config: {
+                                            path: 'tasks/postcss.config.js'
+                                        }
+                                    }
+                                },
+                                'sass-loader'
+                            ],
+                            fallback: 'vue-style-loader'
+                        })
+                    }
+                }
+            },{
+                loader: 'string-replace-loader',
+                query: {
+                    multiple: config.replace
+                }
+            }]
         }, {
             test: /\.(png|jpg|gif)$/,
             use: [{
                 loader: 'url-loader',
                 options: {
                     limit: 8192,
-                    fallback: 'file-loader',                    
-                    name: '[name].[ext]?[hash:8]',
+                    fallback: 'file-loader',
+                    name: 'image/[name].[ext]?[hash:8]',
                     outputPath: 'image/'
-                }
-            }]
-        }, {
-            test: /\.(html)$/,
-            use: [{
-                loader: 'html-loader',
-                options: {
-                    attrs: ['img:src']
                 }
             }]
         }, {
@@ -78,23 +82,7 @@ var buildConf = {
             },{
                 loader: 'string-replace-loader',
                 query: {
-                    multiple: [{
-                        search: 'ysapitest.yy.com',
-                        replace: 'ysapi.yy.com',
-                        flags: 'g'
-                    },{
-                        search: 'wtest.3g.yy.com',
-                        replace: 'wap.yy.com',
-                        flags: 'g'
-                    },{
-                        search: 'webtest.yy.com',
-                        replace: 'web.yy.com',
-                        flags: 'g'
-                    },{
-                        search: 'webtest.yystatic.com',
-                        replace: 'web.yystatic.com',
-                        flags: 'g'
-                    }]
+                    multiple: config.replace
                 }
             }]
         }]
@@ -107,46 +95,4 @@ var buildConf = {
     externals: config.global,
 };
 
-function getEntry() {
-    var jsPath = path.resolve('src');
-    var dirs = fs.readdirSync(jsPath);
-    var matchs = [],
-        files = {};
-    dirs.forEach(function (item) {
-        matchs = item.match(/(.+)\.js$/);
-        if (matchs) {
-            files[matchs[1]] = path.resolve('src', item);
-        }
-    });
-    return files;
-}
-
-function getViews() {
-    var jsPath = path.resolve('src', 'html');
-    var dirs = fs.readdirSync(jsPath);
-    var matchs = [],
-        files = {};
-    dirs.forEach(function (item) {
-        matchs = item.match(/(.+)\.html$/);
-        if (matchs) {
-            files[matchs[1]] = path.resolve('src', 'html', item);
-        }
-    });
-    return files;
-}
-
-var pages = Object.keys(getViews());
-pages.forEach(function (pathname) {
-    var conf = {
-        filename: 'html/' + pathname + '.html',
-        template: 'src/html/' + pathname + '.html'
-    }
-    if (pathname in buildConf.entry) {
-        conf.chunks = [pathname];
-        conf.hash = true;
-    }
-    //生成独立html文件
-    buildConf.plugins.push(new HtmlWebpackPlugin(conf));
-});
-
-module.exports = buildConf;
+module.exports = prodConf;

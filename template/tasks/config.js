@@ -13,6 +13,31 @@ exports.default = {
 		'yyApiUtil': 'window.yyApiUtil',
 		'jweixin': 'window.wx'
 	},
+	replace: [{
+		search: 'ysapitest.yy.com',
+		replace: 'ysapi.yy.com',
+		flags: 'g'
+	}, {
+		search: 'wtest.3g.yy.com',
+		replace: 'wap.yy.com',
+		flags: 'g'
+	}, {
+		search: 'webtest.yy.com',
+		replace: 'web.yy.com',
+		flags: 'g'
+	}, {
+		search: 'webtest.yystatic.com',
+		replace: 'web.yystatic.com',
+		flags: 'g'
+	},{
+		search: 'page-test.yy.com',
+		replace: 'page.yy.com',
+		flags: 'g'
+	},{
+		search: 'wtest.yy.com',
+		replace: 'w.yy.com',
+		flags: 'g'
+	}],
 	// 端口
 	port: 3000,
 	// 测试环境静态资源地址
@@ -22,6 +47,6 @@ exports.default = {
 	// 测试环境项目输出地址
 	outputPath: '../dist/',
 	// 生产环境项目输出地址
-	productOutputPath: '../prod/'
+	productOutputPath: '../../../../../trunk/group_square/mobile/'
 }
 
