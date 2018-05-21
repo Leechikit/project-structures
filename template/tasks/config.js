@@ -47,6 +47,6 @@ exports.default = {
 	// 测试环境项目输出地址
 	outputPath: '../dist/',
 	// 生产环境项目输出地址
-	productOutputPath: '../../../../../trunk/group_square/mobile/'
+	productOutputPath: '../prod/'
 }
 
