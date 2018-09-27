@@ -1,1 +1,1 @@
-# vue + webpack + vuex
+# vue2.0
